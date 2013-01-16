@@ -25,11 +25,15 @@
 	}
 	
 	function render() {
-		front.setAttribute('cx', car.front.position[0]);
-		front.setAttribute('cy', car.front.position[1]);
-		back.setAttribute('cx', car.back.position[0]);
-		back.setAttribute('cy', car.back.position[1]);
+		front.setAttribute('cx', translate(car.front.position[0]));
+		front.setAttribute('cy', translate(car.front.position[1]));
+		back.setAttribute('cx', translate(car.back.position[0]));
+		back.setAttribute('cy', translate(car.back.position[1]));
+		
+		function translate(pos) {
+			return pos * 10 + 200;
+		}
 	}
 	
 	window.onload = init;
-});
+})();
