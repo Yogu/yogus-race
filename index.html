@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Yogu's race</title>
+		<meta charset="utf-8" />
+		
+		<link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
+	</head>
+	<body>
+		<div id="canvas-wrap">
+			<svg id="canvas" xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+				<circle id="back" cx="50" cy="50" r="10" fill="blue" />
+				<circle id="front" cx="80" cy="50" r="10" fill="red" />
+			</svg>
+			<div id="status">Yogu's race</div>
+			<div id="hints">Arrow keys: run &middot; A: jump &middot; Ctrl: Reset camera</div>
+		</div>
+		
+		<script type="text/javascript">
+			document.getElementById('loading-status').innerHTML = 'Please wait while the game is loading...';
+			window.loadingTimeout = setTimeout(function() {
+				if (!window.isError)
+					document.getElementById('loading-status').innerHTML = "That's a little bit too long, probably some error has occurred."
+			}, 10000);
+
+			window.showStatus = function(status) {
+				clearTimeout(window.loadingTimeout);
+				if (!window.isError) {
+					$('#loading-status').html(status);
+				}
+			};
+				
+			window.showError = function(error) {
+				if (!window.isError) {
+					window.isError = true;
+					$('#loading-status').html(error);
+					$('#progress').hide();
+					$('body').addClass('error');
+					window.onerror = null;
+				}
+			};
+			
+			window.onerror = function(message, file, line) {
+				showError('Oops, something went wrong.<br /><br />Details: ' + message + (file ? ' (' + file + ':' + line + ')' : ''));
+			};
+		</script>
+		
+		<script type="text/javascript" src="scripts/main.js"></script>
+		<script type="text/javascript" src="scripts/car.js"></script>
+	</body>
+</html>
