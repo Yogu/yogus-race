@@ -43,13 +43,19 @@
 			var minY = this.world.getHeightAt(this.position[0]);
 			if (targetY < minY) {
 				targetY = minY;
-				this.momentum[1] = 0;
+				this.momentum[1] *= -1;
+				//this.momentum[1] = 0;
+				var epsilon = 1;
+				if (this.world.getHeightAt(this.position[0] + epsilon) < minY)
+					this.momentum[0] += 0.1;
+				else if (this.world.getHeightAt(this.position[0] - epsilon) < minY)
+					this.momentum[0] -= 0.1;
 			}
 			this.position[1] = targetY;
 				
 			
 			// air grip etc.
-			//vec2.scale(this.momentum, this.momentum, Math.pow(0.5, elapsed));
+			vec2.scale(this.momentum, this.momentum, Math.pow(0.5, elapsed));
 			
 			/*var distance = vec2.scale(vec2.create(), this.momentum, elapsed / this.mass);
 			var target = vec2.add(vec2.create(), this.position, distance);

@@ -11,7 +11,8 @@
 		},
 		
 		getHeightAt: function(x) {
-			return -2 - x * 0.1;
+			var scale = 10;
+			return Math.cos(x/scale-5)*scale -scale-2;
 		}
 	};
 })();
